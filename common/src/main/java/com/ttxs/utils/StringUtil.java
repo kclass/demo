@@ -1,6 +1,8 @@
 package com.ttxs.utils;
 
 /**
+ * 字符串类工具类
+ *
  * @author kai.hu
  * @date 2020/3/23 11:30
  */

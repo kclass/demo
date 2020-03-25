@@ -1,7 +1,6 @@
 package com.ttxs.controller;
 
-import com.sun.deploy.util.StringUtils;
-import com.ttxs.utils.StringUtil;
+import com.ttxs.utils.ArithmeticUtil;
 
 /**
  * @author kai.hu
@@ -9,6 +8,7 @@ import com.ttxs.utils.StringUtil;
  */
 public class TestController {
     public static void main(String[] args) {
-        System.out.println(StringUtil.reversString("123445"));
+        int i = 1534236469;
+        System.out.println(ArithmeticUtil.reversNumber(i));
     }
 }

@@ -14,14 +14,14 @@
     <packaging>jar</packaging>
 
     <properties>
-        <utils.version>1.0-SNAPSHOT</utils.version>
+        <common.version>1.0-SNAPSHOT</common.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.ttxs</groupId>
-            <artifactId>utils</artifactId>
-            <version>${utils.version}</version>
+            <artifactId>common</artifactId>
+            <version>${common.version}</version>
         </dependency>
     </dependencies>
 </project>
