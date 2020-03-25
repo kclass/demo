@@ -13,4 +13,15 @@
     <artifactId>controller</artifactId>
     <packaging>jar</packaging>
 
+    <properties>
+        <utils.version>1.0-SNAPSHOT</utils.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.ttxs</groupId>
+            <artifactId>utils</artifactId>
+            <version>${utils.version}</version>
+        </dependency>
+    </dependencies>
 </project>
