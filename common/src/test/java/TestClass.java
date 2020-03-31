@@ -9,6 +9,7 @@ public class TestClass {
         PickUpChinese pk = new PickUpChinese();
         pk.setFilePath("D://r-test//App.vue");
         pk.setResultPath("D://result//app.txt");
+        pk.getSuffixList().add(".txt");
         pk.execute();
         pk.getResult().forEach(System.out :: println);
     }

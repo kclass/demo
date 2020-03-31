@@ -1,10 +1,11 @@
 package com.ttxs.function;
 
+import com.ttxs.exception.UnsatisfactoryException;
+import com.ttxs.utils.ArraysUtil;
+import com.ttxs.utils.CollectionUtil;
+
 import java.io.*;
-import java.util.Arrays;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.regex.Matcher;
+import java.util.*;
 import java.util.regex.Pattern;
 
 /**
@@ -24,13 +25,18 @@ public class PickUpChinese {
     private Set<String> result = new TreeSet<>();
 
     /**
+     * 提取文件的后缀，如果没有则提取全部
+     */
+    private List<String> suffixList = new ArrayList<>();
+
+    public List<String> getSuffixList() {
+        return suffixList;
+    }
+
+    /**
      * 需要读取的文件路径
      */
     private String filePath;
-
-    public void setPattern(Pattern pattern) {
-        this.pattern = pattern;
-    }
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
@@ -40,20 +46,8 @@ public class PickUpChinese {
         this.resultPath = resultPath;
     }
 
-    public Pattern getPattern() {
-        return pattern;
-    }
-
     public Set<String> getResult() {
         return result;
-    }
-
-    public String getFilePath() {
-        return filePath;
-    }
-
-    public String getResultPath() {
-        return resultPath;
     }
 
     /**
@@ -73,7 +67,9 @@ public class PickUpChinese {
         try {
             File file = new File(resultPath);
             if (!file.exists()) {
-                file.createNewFile();
+                if (file.createNewFile()) {
+                 throw new UnsatisfactoryException("创建结果输出文件失败了");
+                }
             }
             FileWriter fileWriter = new FileWriter(file.getAbsoluteFile());
             BufferedWriter bw = new BufferedWriter(fileWriter);
@@ -100,20 +96,22 @@ public class PickUpChinese {
         File file = new File(path);
         if (file.isDirectory()) {
             File[] files = file.listFiles();
-            for (File file1 : files) {
-                if (!"asserts".equals(file1.getName())) {
-                    readDirectory(file1.getPath());
+            if (ArraysUtil.isNotNullOrEmpty(files)) {
+                for (File file1 : files) {
+                    if (!"asserts".equals(file1.getName())) {
+                        readDirectory(file1.getPath());
+                    }
                 }
             }
         } else {
             String fileName = file.getName();
-            //判断读取的文件类型
-            if (
-                    fileName.endsWith(".vue")
-                            || fileName.endsWith(".js")
-                            || fileName.endsWith(".html")
-                            || fileName.endsWith(".txt")
-            ) {
+            if (CollectionUtil.isNotNullOrEmpty(suffixList)) {
+                for (String suffix : suffixList) {
+                    if (fileName.contains(suffix)) {
+                        getChinese(readFile(file));
+                    }
+                }
+            } else {
                 getChinese(readFile(file));
             }
         }
@@ -176,8 +174,6 @@ public class PickUpChinese {
      * @param str 需提取的字符串
      */
     private void getChinese(String str) {
-        Matcher matcher = pattern.matcher(str);
-        String[] strs = matcher.replaceAll(" ").trim().split("\\s+");
-        result.addAll(Arrays.asList(strs));
+        result.addAll(Arrays.asList(pattern.matcher(str).replaceAll(" ").trim().split("\\s+")));
     }
 }
