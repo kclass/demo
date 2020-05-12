@@ -6,6 +6,6 @@ package com.ttxs.test;
  */
 public class Test {
     public static void main(String[] args) {
-        Integer.parseInt("12.12");
+
     }
 }

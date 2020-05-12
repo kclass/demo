@@ -37,10 +37,17 @@
         <hbase-spring-boot>1.0.0.RELEASE</hbase-spring-boot>
         <gbase.version>java-8.3.81.53-build52.8-bin</gbase.version>
         <esayexcel.version>2.0.5</esayexcel.version>
+        <hutool.version>5.2.5</hutool.version>
+        <commons.lang3>3.8.1</commons.lang3>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons.lang3}</version>
+            </dependency>
             <!-- springboot -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
